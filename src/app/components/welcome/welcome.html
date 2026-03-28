@@ -16,6 +16,7 @@
 			</p>
 			<div class="npd-welcome-actions">
 				@if (!user()) {
+				<button mat-raised-button color="primary" [routerLink]="'login'">Login</button>
 				<button mat-raised-button color="primary" [routerLink]="'create-account'">Create Account</button>
 				<button mat-raised-button color="primary" (click)="login()">Sign in with Google</button>
 				}

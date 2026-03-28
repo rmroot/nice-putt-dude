@@ -47,3 +47,7 @@
 	object-fit: cover;
 	display: block;
 }
+
+.icon-white{
+	color: white;
+}

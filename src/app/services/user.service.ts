@@ -1,6 +1,9 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { Auth, authState, signInWithPopup, GoogleAuthProvider, signOut, User as FirebaseUser, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import {
+  Auth, authState, signInWithPopup, GoogleAuthProvider,
+  signOut, User as FirebaseUser, createUserWithEmailAndPassword, updateProfile,
+  signInWithEmailAndPassword
+} from '@angular/fire/auth';
 import { IUser } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -60,5 +63,14 @@ export class UserService {
       };
       this._user.set(user);
     }
+  }
+
+  /**
+   * Sign in a user with email and password.
+   * @param email The user's email address
+   * @param password The user's password
+   */
+  async loginWithEmail(email: string, password: string): Promise<void> {
+    await signInWithEmailAndPassword(this.auth, email, password);
   }
 }

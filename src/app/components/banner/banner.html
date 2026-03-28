@@ -9,7 +9,7 @@
 		@if (user()?.photoURL) {
 		<img [src]="user()!.photoURL" class="npd-avatar" alt="User avatar" />
 		} @else {
-		<mat-icon>account_circle</mat-icon>
+		<mat-icon class="icon-white">account_circle</mat-icon>
 		}
 	</button>
 	<mat-menu #userMenu="matMenu">

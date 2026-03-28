@@ -1,9 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {}
+export class Login {
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  readonly form = new FormGroup({
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] })
+  });
+
+  get email() {
+    return this.form.get('email') as FormControl<string>;
+  }
+  get password() {
+    return this.form.get('password') as FormControl<string>;
+  }
+
+  async onSubmit() {
+    if (this.form.invalid) return;
+    try {
+      await this.userService.loginWithEmail(this.email.value, this.password.value);
+      // Optionally show a success message or navigate to another page
+      this.router.navigateByUrl('/');
+
+    } catch (err) {
+      // TODO: handle error (show message to user)
+    }
+  }
+}
