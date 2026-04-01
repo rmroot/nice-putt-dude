@@ -1,0 +1,13 @@
+mat-card-title {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+mat-card-title mat-icon {
+	font-size: 24px;
+	height: 24px;
+	width: 24px;
+	line-height: 1;
+	vertical-align: middle;
+}

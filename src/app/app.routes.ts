@@ -6,6 +6,7 @@ import { MyMatches } from './components/my-matches/my-matches';
 import { CreateAccount } from './components/create-account/create-account';
 import { ManageProfile } from './components/manage-profile/manage-profile';
 import { Login } from './components/login/login';
+import { UserLockerRoom } from './components/user-locker-room/user-locker-room';
 
 export const routes: Routes = [
     {
@@ -35,5 +36,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: Login
+    },
+    {
+        path: 'locker-room',
+        component: UserLockerRoom
     }
 ];

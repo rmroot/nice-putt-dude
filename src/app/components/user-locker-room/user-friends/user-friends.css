@@ -1,0 +1,14 @@
+/* Vertically center icon and text in mat-list-item links */
+.npd-friend-link {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.npd-friend-link mat-icon {
+	font-size: 24px;
+	height: 24px;
+	width: 24px;
+	line-height: 1;
+	vertical-align: middle;
+}
