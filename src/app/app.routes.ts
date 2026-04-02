@@ -7,6 +7,7 @@ import { CreateAccount } from './components/create-account/create-account';
 import { ManageProfile } from './components/manage-profile/manage-profile';
 import { Login } from './components/login/login';
 import { UserLockerRoom } from './components/user-locker-room/user-locker-room';
+import { CreateGolfCourse } from './components/create-golf-course/create-golf-course';
 
 export const routes: Routes = [
     {
@@ -40,5 +41,9 @@ export const routes: Routes = [
     {
         path: 'locker-room',
         component: UserLockerRoom
+    },
+    {
+        path: 'create-golf-course',
+        component: CreateGolfCourse
     }
 ];

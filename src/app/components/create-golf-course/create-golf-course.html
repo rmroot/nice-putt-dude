@@ -1,0 +1,51 @@
+<mat-card class="npd-create-golf-course-card">
+  <mat-card-header>
+    <mat-card-title>Create Golf Course</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+	<mat-form-field appearance="outline" class="npd-form-field">
+		<mat-label>Golf Course Name</mat-label>
+		<input matInput formControlName="name" maxlength="50" required />
+		@if (name.hasError('required')) {
+			<mat-error>Name is required</mat-error>
+		}
+		@if (name.hasError('maxLength')) {
+			<mat-error>Name is too long</mat-error>
+		}
+	</mat-form-field>
+
+	<div class="holes-list">
+      <div class="holes-section">
+        <div class="holes-header">Front 9</div>
+        @for (holeNumber of front9; track holeNumber) {
+          <div class="hole-row">
+            <label>Hole {{ holeNumber }}</label>
+            <button type="button" mat-mini-fab color="primary" (click)="decrementPar('hole' + holeNumber)"><mat-icon>remove</mat-icon></button>
+            <input matInput type="number" min="3" max="6" [formControl]="getHoleControl('hole' + holeNumber)" readonly />
+            <button type="button" mat-mini-fab color="primary" (click)="incrementPar('hole' + holeNumber)"><mat-icon>add</mat-icon></button>
+          </div>
+        }
+        <div class="hole-total-row">Front 9 Total: <span class="hole-total">{{ front9Total }}</span></div>
+      </div>
+      <div class="holes-section">
+        <div class="holes-header">Back 9</div>
+        @for (holeNumber of back9; track holeNumber) {
+          <div class="hole-row">
+            <label>Hole {{ holeNumber }}</label>
+            <button type="button" mat-mini-fab color="primary" (click)="decrementPar('hole' + holeNumber)"><mat-icon>remove</mat-icon></button>
+            <input matInput type="number" min="3" max="6" [formControl]="getHoleControl('hole' + holeNumber)" readonly />
+            <button type="button" mat-mini-fab color="primary" (click)="incrementPar('hole' + holeNumber)"><mat-icon>add</mat-icon></button>
+          </div>
+        }
+        <div class="hole-total-row">Back 9 Total: <span class="hole-total">{{ back9Total }}</span></div>
+        <div class="hole-total-row">Total Par: <span class="hole-total">{{ totalPar }}</span></div>
+      </div>
+    </div>
+
+      <div class="npd-form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Create Golf Course</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

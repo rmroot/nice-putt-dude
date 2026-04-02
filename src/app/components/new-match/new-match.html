@@ -9,7 +9,34 @@
         <mat-error>Name is too long</mat-error>
         }
     </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="npd-form-field">
+        <mat-label>Golf Course</mat-label>
+        <select matNativeControl formControlName="golfCourseId" required>
+            <option value="" disabled selected>Select a golf course</option>
+            @if (loadingCourses()) {
+                <option disabled>Loading...</option>
+            } @else if (coursesError()) {
+                <option disabled>{{ coursesError() }}</option>
+            } @else {
+                @for (course of golfCourses(); track course.id) {
+                    <option [value]="course.id">{{ course.name }}</option>
+                }
+            }
+        </select>
+        @if (golfCourseId.hasError('required')) {
+            <mat-error>Golf course is required</mat-error>
+        }
+    </mat-form-field>
+
+    <div class="npd-form-link">
+        <a [routerLink]="'/create-golf-course'">
+            <mat-icon>add</mat-icon>
+            Create a new golf course</a>
+    </div>
+
     <div class="npd-form-actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="name.invalid">Create Match</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Create Match</button>
     </div>
 </form>

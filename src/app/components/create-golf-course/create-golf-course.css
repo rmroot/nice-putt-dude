@@ -1,0 +1,105 @@
+
+.holes-list {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.holes-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	min-width: 220px;
+	padding: 1rem 0.5rem 0.5rem 0.5rem;
+}
+
+.holes-header {
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.hole-total-row {
+	font-weight: bold;
+	margin-top: 0.5rem;
+	text-align: right;
+}
+
+.hole-total {
+	font-variant-numeric: tabular-nums;
+	margin-left: 0.5rem;
+}
+
+.hole-row {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.25rem;
+}
+
+.hole-row label {
+	width: 60px;
+	font-weight: 500;
+	flex-shrink: 0;
+}
+
+.hole-row input[matInput] {
+	width: 48px;
+	min-width: 0;
+	text-align: center;
+	font-size: 1.1rem;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.hole-row button[mat-mini-fab] {
+	min-width: 36px;
+	min-height: 36px;
+	width: 36px;
+	height: 36px;
+	font-size: 1.2rem;
+	margin: 0 2px;
+}
+
+@media (max-width: 700px) {
+	.holes-list {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.holes-section {
+		min-width: 0;
+		padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+	}
+	.hole-row label {
+		width: 44px;
+		font-size: 0.95rem;
+	}
+	.hole-row input[matInput] {
+		width: 38px;
+		font-size: 1rem;
+	}
+	.hole-row button[mat-mini-fab] {
+		min-width: 32px;
+		min-height: 32px;
+		width: 32px;
+		height: 32px;
+		font-size: 1rem;
+	}
+}
+
+.holes-header {
+	font-size: 1.1rem;
+	letter-spacing: 0.5px;
+}
+
+.npd-form-field {
+	width: 100%;
+	max-width: 400px;
+}
+
+.npd-form-actions {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: flex-end;
+}
