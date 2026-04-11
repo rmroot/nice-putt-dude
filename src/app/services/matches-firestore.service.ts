@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, addDoc, doc, getDoc, query, where, getDocs, docData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, doc, getDoc, query, where, getDocs, docData, onSnapshot, or } from '@angular/fire/firestore';
 
 
 import { IMatch } from '../models/match.model';
@@ -61,5 +61,32 @@ export class MatchesFirestoreService {
   match$(matchId: string): Observable<IMatch> {
     const matchRef = doc(this.firestore, 'matches', matchId);
     return docData(matchRef, { idField: 'id' }) as Observable<IMatch>;
+  }
+
+  /**
+   * Returns a real-time observable of matches for the current user.
+   * Includes matches where the user is the creator or a player.
+   */
+  userMatches$(): Observable<IMatch[]> {
+    const user = this.userService.user();
+    if (!user) return new Observable<IMatch[]>(subscriber => subscriber.next([]));
+    const matchesRef = collection(this.firestore, 'matches');
+    //include if user is player in match or created match
+    const q = query(matchesRef, or(
+      where('createdByUserId', '==', user.uid), 
+      where('players', 'array-contains', user.uid))
+    );
+    return new Observable<IMatch[]>(subscriber => {
+      const unsubscribe = onSnapshot(q, snapshot => {
+        const matches = snapshot.docs.map(docSnap => {
+          const data = docSnap.data() as IMatch;
+          return { ...data, id: docSnap.id };
+        });
+        subscriber.next(matches);
+      }, error => {
+        subscriber.error(error);
+      });
+      return () => unsubscribe();
+    });
   }
 }

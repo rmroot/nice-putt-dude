@@ -1,6 +1,6 @@
 
 
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, effect } from '@angular/core';
 import { MatchesFirestoreService } from '../../services/matches-firestore.service';
 import { IMatch } from '../../models/match.model';
 import { RouterLink } from '@angular/router';
@@ -23,14 +23,17 @@ export class MyMatches {
   readonly error = signal<string | null>(null);
 
   constructor() {
-    this.matchesService.getMatchesForCurrentUser()
-      .then(matches => {
-        this.matches.set(matches);
-        this.loading.set(false);
-      })
-      .catch(err => {
-        this.error.set('Failed to load matches');
-        this.loading.set(false);
+    effect(() => {
+      const sub = this.matchesService.userMatches$().subscribe({
+        next: matches => {
+          this.matches.set(matches);
+          this.loading.set(false);
+        },
+        error: err => {
+          this.error.set('Failed to load matches');
+          this.loading.set(false);
+        }
       });
+    });
   }
 }
