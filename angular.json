@@ -72,15 +72,12 @@
             },
             "development": {
               "buildTarget": "nice-putt-dude:build:development"
+            },
+            "emulator": {
+              "buildTarget": "nice-putt-dude:build:emulator"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "serve:emulator": {
-          "builder": "@angular/build:dev-server",
-          "options": {
-            "buildTarget": "nice-putt-dude:build:emulator"
-          }
         },
         "test": {
           "builder": "@angular/build:unit-test"
