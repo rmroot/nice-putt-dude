@@ -1,31 +1,47 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatFormField, MatHint, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatDivider } from '@angular/material/divider';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { GolfCoursesFirestoreService } from '../../services/golf-courses-firestore.service';
 import { IGolfCourse } from '../../models/golf-course.model';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-create-golf-course',
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
+    RouterLink,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatHint,
+    MatInput,
+    MatButton,
+    MatIconButton,
+    MatIcon,
+    MatProgressSpinner,
+    MatDivider,
     MatCard,
     MatCardHeader,
     MatCardTitle,
-    MatCardContent
+    MatCardContent,
   ],
   templateUrl: './create-golf-course.html',
   styleUrl: './create-golf-course.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateGolfCourse {
+  private readonly router = inject(Router);
   private readonly golfCoursesService = inject(GolfCoursesFirestoreService);
+
+  readonly submitting = signal(false);
+  readonly submitError = signal<string | null>(null);
 
   readonly form = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.maxLength(50)] }),
@@ -78,7 +94,7 @@ export class CreateGolfCourse {
   }
 
   async onSubmit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.submitting()) return;
     const holesRaw = this.holes.value;
     const holes = {
       hole1: { par: holesRaw?.hole1 ?? 4 },
@@ -99,18 +115,20 @@ export class CreateGolfCourse {
       hole16: { par: holesRaw?.hole16 ?? 4 },
       hole17: { par: holesRaw?.hole17 ?? 4 },
       hole18: { par: holesRaw?.hole18 ?? 4 },
-    }
+    };
     const course: IGolfCourse = {
       id: '',
       name: this.name.value ?? '',
-      holes
+      holes,
     };
+    this.submitting.set(true);
+    this.submitError.set(null);
     try {
       await this.golfCoursesService.addGolfCourse(course);
-      // TODO: navigate or show success
-    } catch (err) {
-      // TODO: show error
-      console.error('Failed to create golf course:', err);
+      this.router.navigate(['/new-match']);
+    } catch {
+      this.submitError.set('Failed to create golf course. Please try again.');
+      this.submitting.set(false);
     }
   }
   get front9Total(): number {

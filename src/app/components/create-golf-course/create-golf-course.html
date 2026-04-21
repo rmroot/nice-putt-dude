@@ -1,51 +1,157 @@
-<mat-card class="npd-create-golf-course-card">
-  <mat-card-header>
-    <mat-card-title>Create Golf Course</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-	<mat-form-field appearance="outline" class="npd-form-field">
-		<mat-label>Golf Course Name</mat-label>
-		<input matInput formControlName="name" maxlength="50" required />
-		@if (name.hasError('required')) {
-			<mat-error>Name is required</mat-error>
-		}
-		@if (name.hasError('maxLength')) {
-			<mat-error>Name is too long</mat-error>
-		}
-	</mat-form-field>
+<div class="cgc-page">
 
-	<div class="holes-list">
-      <div class="holes-section">
-        <div class="holes-header">Front 9</div>
-        @for (holeNumber of front9; track holeNumber) {
-          <div class="hole-row">
-            <label>Hole {{ holeNumber }}</label>
-            <button type="button" mat-mini-fab color="primary" (click)="decrementPar('hole' + holeNumber)"><mat-icon>remove</mat-icon></button>
-            <input matInput type="number" min="3" max="6" [formControl]="getHoleControl('hole' + holeNumber)" readonly />
-            <button type="button" mat-mini-fab color="primary" (click)="incrementPar('hole' + holeNumber)"><mat-icon>add</mat-icon></button>
-          </div>
-        }
-        <div class="hole-total-row">Front 9 Total: <span class="hole-total">{{ front9Total }}</span></div>
-      </div>
-      <div class="holes-section">
-        <div class="holes-header">Back 9</div>
-        @for (holeNumber of back9; track holeNumber) {
-          <div class="hole-row">
-            <label>Hole {{ holeNumber }}</label>
-            <button type="button" mat-mini-fab color="primary" (click)="decrementPar('hole' + holeNumber)"><mat-icon>remove</mat-icon></button>
-            <input matInput type="number" min="3" max="6" [formControl]="getHoleControl('hole' + holeNumber)" readonly />
-            <button type="button" mat-mini-fab color="primary" (click)="incrementPar('hole' + holeNumber)"><mat-icon>add</mat-icon></button>
-          </div>
-        }
-        <div class="hole-total-row">Back 9 Total: <span class="hole-total">{{ back9Total }}</span></div>
-        <div class="hole-total-row">Total Par: <span class="hole-total">{{ totalPar }}</span></div>
-      </div>
-    </div>
+  <a [routerLink]="['/new-match']" class="sc-back" aria-label="Back to new match">
+    <mat-icon>arrow_back</mat-icon>
+    <span>New Match</span>
+  </a>
 
-      <div class="npd-form-actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Create Golf Course</button>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+  <mat-card class="cgc-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>golf_course</mat-icon>
+        Create Golf Course
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="cgc-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Course name</mat-label>
+          <input matInput formControlName="name" maxlength="50" autocomplete="off" />
+          @if (name.hasError('required')) {
+            <mat-error>Name is required</mat-error>
+          }
+          @if (name.hasError('maxlength')) {
+            <mat-error>Name must be 50 characters or fewer</mat-error>
+          }
+          <mat-hint align="end">{{ name.value.length }}/50</mat-hint>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+
+        <div class="sc-nines-row">
+
+          <!-- Front 9 -->
+          <mat-card class="sc-nine-card">
+            <mat-card-header>
+              <mat-card-title>Front 9</mat-card-title>
+              <div class="nine-summary">
+                <span class="nine-par">Par</span>
+                <span class="nine-strokes">{{ front9Total }}</span>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="hole-list">
+                @for (holeNumber of front9; track holeNumber) {
+                  <mat-divider></mat-divider>
+                  <div class="hole-row">
+                    <span class="hole-num">{{ holeNumber }}</span>
+                    <span class="hole-par-label">Par</span>
+                    <div class="stroke-stepper">
+                      <button
+                        type="button"
+                        mat-icon-button
+                        class="step-btn"
+                        (click)="decrementPar('hole' + holeNumber)"
+                        [disabled]="getHoleControl('hole' + holeNumber).value <= 3"
+                        [attr.aria-label]="'Decrease par for hole ' + holeNumber"
+                      >
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                      <span class="stroke-val">{{ getHoleControl('hole' + holeNumber).value }}</span>
+                      <button
+                        type="button"
+                        mat-icon-button
+                        class="step-btn"
+                        (click)="incrementPar('hole' + holeNumber)"
+                        [disabled]="getHoleControl('hole' + holeNumber).value >= 6"
+                        [attr.aria-label]="'Increase par for hole ' + holeNumber"
+                      >
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Back 9 -->
+          <mat-card class="sc-nine-card">
+            <mat-card-header>
+              <mat-card-title>Back 9</mat-card-title>
+              <div class="nine-summary">
+                <span class="nine-par">Par</span>
+                <span class="nine-strokes">{{ back9Total }}</span>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="hole-list">
+                @for (holeNumber of back9; track holeNumber) {
+                  <mat-divider></mat-divider>
+                  <div class="hole-row">
+                    <span class="hole-num">{{ holeNumber }}</span>
+                    <span class="hole-par-label">Par</span>
+                    <div class="stroke-stepper">
+                      <button
+                        type="button"
+                        mat-icon-button
+                        class="step-btn"
+                        (click)="decrementPar('hole' + holeNumber)"
+                        [disabled]="getHoleControl('hole' + holeNumber).value <= 3"
+                        [attr.aria-label]="'Decrease par for hole ' + holeNumber"
+                      >
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                      <span class="stroke-val">{{ getHoleControl('hole' + holeNumber).value }}</span>
+                      <button
+                        type="button"
+                        mat-icon-button
+                        class="step-btn"
+                        (click)="incrementPar('hole' + holeNumber)"
+                        [disabled]="getHoleControl('hole' + holeNumber).value >= 6"
+                        [attr.aria-label]="'Increase par for hole ' + holeNumber"
+                      >
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+
+        <!-- Total par summary -->
+        <div class="cgc-total-row">
+          <span class="cgc-total-label">Total Par</span>
+          <span class="cgc-total-value">{{ totalPar }}</span>
+        </div>
+
+        @if (submitError()) {
+          <p class="cgc-error" role="alert">{{ submitError() }}</p>
+        }
+
+        <div class="cgc-actions">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid || submitting()"
+          >
+            @if (submitting()) {
+              <mat-progress-spinner mode="indeterminate" diameter="18" class="btn-spinner"></mat-progress-spinner>
+            } @else {
+              <mat-icon>golf_course</mat-icon>
+            }
+            Create Course
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>
