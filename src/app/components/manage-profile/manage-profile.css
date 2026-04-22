@@ -1,0 +1,53 @@
+/* Manage-profile-specific styles — shared utilities live in src/shared.css */
+
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.mp-page {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mp-card {
+  width: 100%;
+}
+
+/* ── Avatar ────────────────────────────────────────────────── */
+
+.mp-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.mp-avatar-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mp-avatar-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 0.5rem;
+  }
+}

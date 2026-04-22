@@ -1,7 +1,7 @@
-<div class="npd-create-account-page">
-  <mat-card class="npd-create-account-card">
-    <mat-card-header class="npd-create-account-header">
-      <mat-icon class="npd-create-account-icon">sports_golf</mat-icon>
+<div class="npd-auth-page">
+  <mat-card class="npd-auth-card">
+    <mat-card-header class="npd-auth-header">
+      <mat-icon class="npd-auth-icon">sports_golf</mat-icon>
       <mat-card-title>Create an account</mat-card-title>
       <mat-card-subtitle>Join Nice Putt Dude and start tracking your game</mat-card-subtitle>
     </mat-card-header>
@@ -14,7 +14,7 @@
         </div>
       }
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-create-account-form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-auth-form">
         <mat-form-field appearance="outline" class="npd-form-field">
           <mat-label>Email</mat-label>
           <mat-icon matPrefix>email</mat-icon>
@@ -113,7 +113,7 @@
       </button>
     </mat-card-content>
 
-    <mat-card-actions class="npd-create-account-actions">
+    <mat-card-actions class="npd-auth-actions">
       <span>Already have an account?</span>
       <a mat-button color="primary" routerLink="/login">Sign in</a>
     </mat-card-actions>

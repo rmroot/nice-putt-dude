@@ -1,4 +1,4 @@
-<a [routerLink]="['/my-matches']" class="sc-back" aria-label="Back to my matches">
+<a [routerLink]="['/my-matches']" class="npd-back-link" aria-label="Back to my matches">
   <mat-icon>arrow_back</mat-icon>
   <span>
       My Matches</span>
@@ -92,7 +92,7 @@
           [disabled]="form.invalid || submitting()"
         >
           @if (submitting()) {
-            <mat-progress-spinner mode="indeterminate" diameter="18" class="btn-spinner"></mat-progress-spinner>
+            <mat-progress-spinner mode="indeterminate" diameter="18" class="npd-btn-spinner"></mat-progress-spinner>
           }
           Create Match
         </button>

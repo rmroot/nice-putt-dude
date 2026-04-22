@@ -1,13 +1,35 @@
+/* User-locker-room-specific styles — shared utilities live in src/shared.css */
+
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.lr-page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.lr-card {
+  width: 100%;
+}
+
 mat-card-title {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 mat-card-title mat-icon {
-	font-size: 24px;
-	height: 24px;
-	width: 24px;
-	line-height: 1;
-	vertical-align: middle;
+  font-size: 24px;
+  height: 24px;
+  width: 24px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 0.5rem;
+  }
 }

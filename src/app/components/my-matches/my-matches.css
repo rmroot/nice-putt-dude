@@ -1,3 +1,5 @@
+/* My-matches-specific styles — shared utilities live in src/shared.css */
+
 :host {
   display: block;
   padding: 1rem;
@@ -29,14 +31,6 @@ mat-card-title mat-icon {
   font-size: 28px;
   height: 28px;
   width: 28px;
-}
-
-.npd-loading {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 2rem;
-  justify-content: center;
 }
 
 .no-matches {
@@ -94,21 +88,6 @@ mat-card-title mat-icon {
   width: 20px;
 }
 
-.place-gold {
-  background: #ffd700;
-  color: #5a3a00;
-}
-
-.place-silver {
-  background: #c0c0c0;
-  color: #333;
-}
-
-.place-bronze {
-  background: #cd7f32;
-  color: #fff;
-}
-
 .match-info {
   display: flex;
   flex-direction: column;
@@ -136,18 +115,6 @@ mat-card-title mat-icon {
   min-width: 2.25rem;
   text-align: center;
   flex-shrink: 0;
-}
-
-.score-under {
-  color: #388e3c;
-}
-
-.score-over {
-  color: #d32f2f;
-}
-
-.score-even {
-  color: var(--mat-sys-on-surface-variant, #555);
 }
 
 .row-chevron {

@@ -1,10 +1,15 @@
-<div>
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>
-                <mat-icon>groups</mat-icon>
-                {{ user()?.displayName }}'s Locker Room</mat-card-title>
-        </mat-card-header>
-        <app-user-friends></app-user-friends>
-    </mat-card>
+<div class="lr-page">
+  <mat-card class="lr-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>groups</mat-icon>
+        @if (user()?.displayName) {
+          {{ user()!.displayName }}'s Locker Room
+        } @else {
+          Locker Room
+        }
+      </mat-card-title>
+    </mat-card-header>
+    <app-user-friends></app-user-friends>
+  </mat-card>
 </div>

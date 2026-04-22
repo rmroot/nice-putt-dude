@@ -1,14 +1,18 @@
 <div class="npd-welcome-container">
 	<mat-card class="npd-welcome-card">
 		<mat-card-header>
+			<mat-icon class="npd-welcome-icon">sports_golf</mat-icon>
 			<mat-card-title>
 				@if (user()) {
-				Hello {{ user()?.displayName || 'user' }}, Welcome to Nice Putt Dude!
+				Hello {{ user()?.displayName || 'there' }}, welcome back!
 				}
 				@else {
 				Welcome to Nice Putt Dude!
 				}
 			</mat-card-title>
+			@if (!user()) {
+				<mat-card-subtitle>Track your golf rounds with friends</mat-card-subtitle>
+			}
 		</mat-card-header>
 		<mat-card-content>
 			<p>
@@ -16,14 +20,17 @@
 			</p>
 			<div class="npd-welcome-actions">
 				@if (!user()) {
-				<button mat-raised-button color="primary" [routerLink]="'login'">Login</button>
-				<button mat-raised-button color="primary" [routerLink]="'create-account'">Create Account</button>
-				<button mat-raised-button color="primary" (click)="login()">Sign in with Google</button>
+				<button mat-raised-button color="primary" [routerLink]="'login'">Sign In</button>
+				<button mat-stroked-button color="primary" [routerLink]="'create-account'">Create Account</button>
+				<button mat-stroked-button (click)="login()">
+					<img src="assets/google-logo.svg" alt="" aria-hidden="true" class="npd-welcome-google-logo" />
+					Continue with Google
+				</button>
 				}
 				@if (user()) {
 				<button mat-raised-button color="primary" [routerLink]="'new-match'">Start New Match</button>
-				<button mat-stroked-button color="accent" [routerLink]="'my-matches'">My Matches</button>
-				<button mat-stroked-button color="accent" [routerLink]="'locker-room'">Locker Room</button>
+				<button mat-stroked-button color="primary" [routerLink]="'my-matches'">My Matches</button>
+				<button mat-stroked-button [routerLink]="'locker-room'">Locker Room</button>
 				}
 			</div>
 		</mat-card-content>

@@ -1,8 +1,14 @@
+/* Welcome-specific styles — shared utilities live in src/shared.css */
+
+:host {
+  display: block;
+  padding: 1rem;
+}
+
 .npd-welcome-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* justify-content: center; */
 	min-height: 70vh;
 	width: 100%;
 }
@@ -13,6 +19,14 @@
 	padding: 8px 0 16px 0;
 }
 
+.npd-welcome-icon {
+	font-size: 48px;
+	height: 48px;
+	width: 48px;
+	color: var(--mat-sys-primary);
+	margin-bottom: 8px;
+}
+
 .npd-welcome-actions {
 	display: flex;
 	flex-direction: column;
@@ -20,15 +34,16 @@
 	margin-top: 24px;
 }
 
+.npd-welcome-google-logo {
+	width: 18px;
+	height: 18px;
+	margin-right: 4px;
+	vertical-align: middle;
+}
+
 @media (min-width: 600px) {
 	.npd-welcome-card {
 		max-width: 480px;
 		margin: 24px auto;
-	}
-
-	.npd-welcome-actions {
-		/* flex-direction: row; */
-		justify-content: center;
-		/* gap: 24px; */
 	}
 }

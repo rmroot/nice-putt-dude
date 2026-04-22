@@ -1,16 +1,83 @@
-<h2>Manage Profile</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-manage-profile-form">
-	<mat-form-field appearance="outline" class="npd-form-field">
-		<mat-label>Display Name</mat-label>
-		<input matInput formControlName="displayName" maxlength="50" required autocomplete="name" />
-		@if (displayName.hasError('required')) {
-			<mat-error>Display name is required</mat-error>
-		}
-		@if (displayName.hasError('maxLength')) {
-			<mat-error>Display name is too long</mat-error>
-		}
-	</mat-form-field>
-	<div class="npd-form-actions">
-		<button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Update Profile</button>
-	</div>
-</form>
+<div class="mp-page">
+  <a [routerLink]="['/']" class="npd-back-link" aria-label="Back to home">
+    <mat-icon>arrow_back</mat-icon>
+    <span>Home</span>
+  </a>
+
+  <mat-card class="mp-card">
+    <mat-card-header class="npd-auth-header">
+      <div class="mp-avatar" aria-hidden="true">
+        @if (user()?.photoURL) {
+          <img [src]="user()!.photoURL" alt="Profile photo" class="mp-avatar-img" />
+        } @else {
+          <span class="mp-avatar-initials">{{ getInitials() }}</span>
+        }
+      </div>
+      <mat-card-title>Manage Profile</mat-card-title>
+      @if (user()?.email) {
+        <mat-card-subtitle>{{ user()!.email }}</mat-card-subtitle>
+      }
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (errorMessage()) {
+        <div class="npd-error-banner" role="alert">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="npd-success-banner" role="status">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ successMessage() }}</span>
+        </div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-auth-form">
+        <mat-form-field appearance="outline" class="npd-form-field">
+          <mat-label>Display Name</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="displayName" maxlength="50" autocomplete="name" />
+          @if (displayName.hasError('required')) {
+            <mat-error>Display name is required</mat-error>
+          }
+          @if (displayName.hasError('maxlength')) {
+            <mat-error>Display name is too long</mat-error>
+          }
+          <mat-hint align="end">{{ displayName.value.length }}/50</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="npd-form-field">
+          <mat-label>Photo URL</mat-label>
+          <mat-icon matPrefix>image</mat-icon>
+          <input
+            matInput
+            formControlName="photoURL"
+            type="url"
+            autocomplete="photo"
+            placeholder="https://…"
+          />
+          @if (photoURL.hasError('maxlength')) {
+            <mat-error>URL is too long</mat-error>
+          }
+          <mat-hint>Optional: link to your profile photo</mat-hint>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="npd-submit-btn"
+          [disabled]="form.invalid || isLoading()"
+        >
+          @if (isLoading()) {
+            <mat-progress-spinner diameter="20" mode="indeterminate" class="npd-btn-spinner"></mat-progress-spinner>
+          } @else {
+            Save Changes
+          }
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

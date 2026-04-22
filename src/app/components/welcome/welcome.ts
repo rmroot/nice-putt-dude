@@ -2,6 +2,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
 import { RouterLink } from "@angular/router";
 
@@ -10,6 +11,7 @@ import { RouterLink } from "@angular/router";
   imports: [
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
     RouterLink
 ],
   templateUrl: './welcome.html',

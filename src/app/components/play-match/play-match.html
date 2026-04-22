@@ -3,7 +3,7 @@
 @let _user = user();
 
 @if (_user) {
-<a [routerLink]="['/my-matches']" class="sc-back" aria-label="Back to my matches">
+<a [routerLink]="['/my-matches']" class="npd-back-link" aria-label="Back to my matches">
   <mat-icon>arrow_back</mat-icon>
   <span>Back to My Matches</span>
 </a>
@@ -26,7 +26,7 @@
     <button mat-raised-button color="primary" type="button" (click)="addUserScorecard()"
       [disabled]="addingScorecard()">
       @if (addingScorecard()) {
-      <mat-progress-spinner mode="indeterminate" diameter="18" class="btn-spinner"></mat-progress-spinner>
+      <mat-progress-spinner mode="indeterminate" diameter="18" class="npd-btn-spinner"></mat-progress-spinner>
       } @else {
       <mat-icon>add</mat-icon>
       }

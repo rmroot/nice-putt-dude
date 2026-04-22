@@ -1,6 +1,6 @@
 <div class="cgc-page">
 
-  <a [routerLink]="['/new-match']" class="sc-back" aria-label="Back to new match">
+  <a [routerLink]="['/new-match']" class="npd-back-link" aria-label="Back to new match">
     <mat-icon>arrow_back</mat-icon>
     <span>New Match</span>
   </a>
@@ -142,7 +142,7 @@
             [disabled]="form.invalid || submitting()"
           >
             @if (submitting()) {
-              <mat-progress-spinner mode="indeterminate" diameter="18" class="btn-spinner"></mat-progress-spinner>
+              <mat-progress-spinner mode="indeterminate" diameter="18" class="npd-btn-spinner"></mat-progress-spinner>
             } @else {
               <mat-icon>golf_course</mat-icon>
             }

@@ -1,7 +1,7 @@
-<div class="npd-login-page">
-  <mat-card class="npd-login-card">
-    <mat-card-header class="npd-login-header">
-      <mat-icon class="npd-login-icon">sports_golf</mat-icon>
+<div class="npd-auth-page">
+  <mat-card class="npd-auth-card">
+    <mat-card-header class="npd-auth-header">
+      <mat-icon class="npd-auth-icon">sports_golf</mat-icon>
       <mat-card-title>Welcome back</mat-card-title>
       <mat-card-subtitle>Sign in to Nice Putt Dude</mat-card-subtitle>
     </mat-card-header>
@@ -14,7 +14,7 @@
         </div>
       }
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-login-form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-auth-form">
         <mat-form-field appearance="outline" class="npd-form-field">
           <mat-label>Email</mat-label>
           <mat-icon matPrefix>email</mat-icon>
@@ -87,7 +87,7 @@
       </button>
     </mat-card-content>
 
-    <mat-card-actions class="npd-login-actions">
+    <mat-card-actions class="npd-auth-actions">
       <span>Don't have an account?</span>
       <a mat-button color="primary" routerLink="/create-account">Create account</a>
     </mat-card-actions>
