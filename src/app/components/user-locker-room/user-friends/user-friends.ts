@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatError } from '@angular/material/form-field';
 import { UserService } from '../../../services/user.service';
 import { PublicUsersFirestoreService } from '../../../services/public-users-firestore.service';
 import { MatIcon } from '@angular/material/icon';
@@ -21,7 +20,7 @@ interface FriendItem {
 
 @Component({
   selector: 'app-user-friends',
-  imports: [RouterLink, MatCardModule, MatListModule, MatProgressSpinnerModule, MatError, MatIcon],
+  imports: [RouterLink, MatCardModule, MatListModule, MatProgressSpinnerModule, MatIcon],
   templateUrl: './user-friends.html',
   styleUrl: './user-friends.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
