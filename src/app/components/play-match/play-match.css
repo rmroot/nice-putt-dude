@@ -25,12 +25,14 @@ mat-card-title mat-icon {
   width: 28px;
 }
 
-.settings-link {
+.header-actions {
   margin-left: auto;
-  color: inherit;
   display: flex;
   align-items: center;
+  gap: 0.25rem;
 }
+
+
 
 .npd-loading {
   display: flex;
@@ -84,6 +86,16 @@ mat-card-title mat-icon {
 
 .leaderboard-row:hover {
   background: var(--mat-sys-surface-variant, #f5f5f5);
+}
+
+.leaderboard-row--mine {
+  background: color-mix(in srgb, var(--mat-sys-primary, #1976d2) 7%, var(--mat-sys-surface, #fff));
+  border-left: 3px solid var(--mat-sys-primary, #1976d2);
+  padding-left: calc(1rem - 3px);
+}
+
+.leaderboard-row--mine:hover {
+  background: color-mix(in srgb, var(--mat-sys-primary, #1976d2) 13%, var(--mat-sys-surface, #fff));
 }
 
 .leaderboard-row:focus-visible {
@@ -162,6 +174,19 @@ mat-card-title mat-icon {
 .row-chevron {
   color: var(--mat-sys-outline, #bbb);
   flex-shrink: 0;
+}
+
+.you-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mat-sys-on-primary-container, #fff);
+  background: var(--mat-sys-primary-container, #1976d2);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  line-height: 1.5;
 }
 
 .add-scorecard-row {

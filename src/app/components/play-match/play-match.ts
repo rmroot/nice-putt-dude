@@ -12,7 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatError } from '@angular/material/form-field';
 import { MatDivider } from '@angular/material/list';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { ScoreboardsFirestoreService } from '../../services/scoreboards-firestore.service';
 import { IScoreboard } from '../../models/scoreboard.model';
 
@@ -29,6 +29,7 @@ import { IScoreboard } from '../../models/scoreboard.model';
     RouterLink,
     MatDivider,
     MatButton,
+    MatIconButton,
   ],
   templateUrl: './play-match.html',
   styleUrl: './play-match.css',
@@ -52,12 +53,13 @@ export class PlayMatch {
   readonly error = signal<string | null>(null);
   readonly scoreboard = signal<IScoreboard | null>(null);
   readonly user = computed(() => this.userService.user());
-  readonly userHasScorecard = computed(() => {
+  readonly userScorecardEntry = computed(() => {
     const user = this.user();
-    if (!user) return false;
-    console.log(this.scoreboard())
-    return this.scoreboard()?.entries.some(entry => entry.userId === user.uid) ?? false;
+    if (!user) return null;
+    return this.scoreboard()?.entries.find(e => e.userId === user.uid) ?? null;
   });
+
+  readonly userHasScorecard = computed(() => this.userScorecardEntry() !== null);
 
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');

@@ -1,16 +1,52 @@
-<h2>Manage Profile</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-manage-profile-form">
-	<mat-form-field appearance="outline" class="npd-form-field">
-		<mat-label>Display Name</mat-label>
-		<input matInput formControlName="displayName" maxlength="50" required autocomplete="name" />
-		@if (displayName.hasError('required')) {
-			<mat-error>Display name is required</mat-error>
-		}
-		@if (displayName.hasError('maxLength')) {
-			<mat-error>Display name is too long</mat-error>
-		}
-	</mat-form-field>
-	<div class="npd-form-actions">
-		<button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Update Profile</button>
-	</div>
-</form>
+<div class="npd-manage-profile-page">
+	<a routerLink="/" class="sc-back" aria-label="Back to locker room">
+		<mat-icon>arrow_back</mat-icon>
+		<span>Home</span>
+	</a>
+
+	<mat-card class="npd-manage-profile-card">
+		<mat-card-header class="npd-manage-profile-header">
+			<mat-card-title>
+				<mat-icon>person</mat-icon>
+				Manage Profile
+			</mat-card-title>
+		</mat-card-header>
+
+		<mat-card-content>
+			@if (successMessage()) {
+			<div class="npd-success-banner" role="alert">
+				<mat-icon>check_circle</mat-icon>
+				<span>{{ successMessage() }}</span>
+			</div>
+			}
+
+			<form [formGroup]="form" (ngSubmit)="onSubmit()" class="npd-manage-profile-form">
+				<mat-form-field appearance="outline" class="npd-form-field">
+					<mat-label>Display Name</mat-label>
+					<mat-icon matPrefix>badge</mat-icon>
+					<input matInput formControlName="displayName" maxlength="50" required autocomplete="name"
+						(focus)="clearSuccessMessage()" />
+					<mat-hint align="end">{{ displayName.value.length }}/50</mat-hint>
+					@if (displayName.hasError('required')) {
+					<mat-error>Display name is required</mat-error>
+					}
+					@if (displayName.hasError('maxLength')) {
+					<mat-error>Display name is too long</mat-error>
+					}
+				</mat-form-field>
+
+				<button mat-raised-button color="primary" type="submit" class="npd-submit-btn"
+					[disabled]="form.invalid || isSubmitting()">
+					@if (isSubmitting()) {
+					<mat-progress-spinner diameter="20" class="npd-btn-spinner"></mat-progress-spinner>
+					} @else {
+					<span style="display: flex; align-items: center; gap: 0.5rem;">
+						<mat-icon>save</mat-icon>
+						Save Changes
+					</span>
+					}
+				</button>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>
