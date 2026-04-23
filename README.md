@@ -31,7 +31,9 @@ A golf match-tracking web application built as an example project for a database
 
 2. **Configure Firebase credentials:**
 
-   Copy `src/environments/firebase.example.ts` to `src/environments/firebase.ts` and fill in your Firebase project credentials. (The actual `firebase.ts` is not committed to the repository.)
+   If you are running with the Firebase Emulator, you can skip this step and run the app as-is.
+   
+   Only configure credentials if you want to run against an online Firebase project. In that case, copy `src/environments/firebase.example.ts` to `src/environments/firebase.ts` and fill in your Firebase project credentials. (The actual `firebase.ts` is not committed to the repository.)
 
    ```bash
    cp src/environments/firebase.example.ts src/environments/firebase.ts
